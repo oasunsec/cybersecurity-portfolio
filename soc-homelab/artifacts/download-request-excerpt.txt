@@ -1,0 +1,7 @@
+GET /dqatt7c4cvcc1fc1/install.sh HTTP/1.1
+Host: filebin.net
+User-Agent: curl/7.88.1
+Accept: */*
+
+HTTP/1.1 302 Found
+Location: https://s3.filebin.net/filebin/.../install.sh
