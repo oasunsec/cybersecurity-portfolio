@@ -55,15 +55,19 @@ flowchart LR
 Each screenshot below is a direct capture of a saved artifact or a focused excerpt from one so the relevant headers and response codes stay readable in the README.
 
 Baseline `robots.txt` disclosed `/ftp/`, which supported `V-01`:
+
 ![Baseline robots.txt disclosed /ftp/](./screenshots/2026-03-21_evidence-robots-disclosure.png)
 
 Baseline response headers showed `Access-Control-Allow-Origin: *` and no `Content-Security-Policy` header in the observed response, which supported `V-02` and `V-03`:
+
 ![Baseline response headers](./screenshots/2026-03-21_evidence-baseline-headers.png)
 
 The hardened proxy narrowed the allowed origin and added CSP and supporting browser security headers:
+
 ![Hardened proxy response headers](./screenshots/2026-03-21_evidence-hardened-headers.png)
 
 The hardened proxy also returned `403 Forbidden` for `/ftp/`, which closed the route exposure used in `V-01`:
+
 ![Hardened proxy blocked /ftp/](./screenshots/2026-03-21_evidence-hardened-ftp-block.png)
 
 ## Saved Artifacts
