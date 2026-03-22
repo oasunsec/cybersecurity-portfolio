@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This project documents a focused vulnerability management workflow against OWASP Juice Shop running in a local Docker lab. The goal is to identify exposed services and application weaknesses, prioritize meaningful findings, document remediation options, and validate follow-up actions. The emphasis is on evidence, prioritization, and reporting quality rather than producing a long scanner dump.
+This project documents a focused vulnerability management workflow against OWASP Juice Shop in a local Docker lab. The goal is to identify exposed services and application weaknesses, prioritize validated findings, document remediation options, and verify follow-up actions. The focus is on evidence, prioritization, and clear reporting rather than relying on scanner output alone.
 
 ## Environment
 
@@ -47,12 +47,12 @@ flowchart LR
 2. Verified connectivity and identified exposed services
 3. Ran lightweight assessment tools against the target
 4. Reviewed and prioritized findings
-5. Built a hardened reverse proxy to test compensating controls without modifying Juice Shop source
+5. Built a hardened reverse proxy to test compensating controls without modifying the Juice Shop source
 6. Performed a validation pass and updated the findings summary
 
 ## Evidence
 
-Each screenshot below is a direct capture of a saved artifact or a focused excerpt from one so the relevant headers and response codes stay readable in the README.
+Each screenshot below is a direct capture of a saved artifact or a focused excerpt so the relevant headers and response codes remain readable in the README.
 
 Baseline `robots.txt` disclosed `/ftp/`, which supported `V-01`:
 
@@ -103,7 +103,7 @@ The hardened proxy also returned `403 Forbidden` for `/ftp/`, which closed the r
 
 ## Hardening Validation Pass
 
-To demonstrate a real before-and-after comparison without patching Juice Shop source, I placed the app behind a local Nginx reverse proxy on `127.0.0.1:8081`.
+To show a before and after comparison without patching the Juice Shop source, I placed the application behind a local Nginx reverse proxy on 127.0.0.1:8081.
 
 The proxy applied four compensating controls:
 
@@ -112,13 +112,13 @@ The proxy applied four compensating controls:
 - rewrote `Access-Control-Allow-Origin` from `*` to the local proxy origin
 - added `Content-Security-Policy`, `Permissions-Policy`, and `Referrer-Policy`
 
-This is a compensating-control validation, not a claim that the underlying training app was permanently fixed.
+This validation demonstrates compensating controls and does not claim that the underlying training application was permanently fixed.
 
 ## Validation and Triage
 
 The initial Nikto run generated many backup-file findings such as `/archive.tar` and `/dump.jks`. Manual validation showed these were not distinct exposed backup files. The application returned the same HTML shell for arbitrary paths, which created scanner noise.
 
-This triage step mattered because it prevented the report from overstating risk.
+This triage step prevented the report from overstating risk.
 
 The follow-up validation pass then used `artifacts/validation-*.txt` to confirm the compensating controls worked as intended:
 
@@ -130,7 +130,7 @@ The follow-up validation pass then used `artifacts/validation-*.txt` to confirm 
 
 - `V-01` matters because it discloses a sensitive-looking path and confirms the route is reachable; the proxy validation removed the disclosure and blocked direct access
 - `V-02` is lower risk here because no credentialed cross-origin workflow was validated, but it still reflects weak default exposure; the validation pass showed a narrower origin policy.
-- `V-03` is a hardening gap rather than proof of direct compromise; the validation pass showed how a proxy can add CSP even when the lab app is unchanged
+- `V-03` is a hardening gap rather than evidence of direct compromise; the validation pass showed how a proxy can add CSP even when the lab application remains unchanged.
 
 ## Next Steps
 
@@ -144,4 +144,4 @@ If this were a production application instead of a training target, I would:
 
 ## Conclusion
 
-The assessment stayed intentionally narrow: confirm real issues, discard scanner noise, and show validation evidence after hardening. The reverse-proxy comparison provides a clear before-and-after record without changing the underlying training application.
+The assessment remained intentionally narrow: confirm validated issues, discard scanner noise, and document evidence after hardening. The reverse-proxy comparison provides a clear before-and-after record without changing the underlying training application.
