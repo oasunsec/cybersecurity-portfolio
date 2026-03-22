@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This project documents a detection engineering workflow built around a Windows RDP authentication use case. Instead of only reviewing alerts, the lab validates detection logic, exports structured case artifacts, reviews telemetry gaps, and explains when a rule should stay visible versus when it should be tuned. The case uses repeated Terminal Services `1149` authentication events that indicate accepted RDP access and maps to ATT&CK `T1021.001`.
+This project documents a detection engineering workflow built around a Windows RDP authentication use case. The lab validates detection logic, preserves structured case artifacts, reviews telemetry gaps, and supports tuning decisions based on the available evidence. The case uses repeated Terminal Services 1149 authentication events that indicate accepted RDP access and maps to ATT&CK T1021.001.
 
 ## Environment
 
@@ -39,13 +39,12 @@ flowchart LR
 ## Detection Use Case
 
 The use case is intentionally narrow:
+	1.	Look for Windows Terminal Services event 1149
+	2.	Group repeated successful RDP authentications by host, user, and source IP
+	3.	Promote clusters of repeated authentications into findings
+	4.	Review whether the rule should remain standalone, be correlated with additional telemetry, or be suppressed for known-good administrative activity
 
-1. Look for Windows Terminal Services event `1149`
-2. Group repeated successful RDP authentications by host, user, and source IP
-3. Promote clusters of repeated authentications into findings
-4. Review whether the rule should stay standalone, correlate with more telemetry, or be suppressed in known-good admin paths
-
-The rule is narrow enough to explain clearly while still supporting useful tuning decisions.
+The narrow scope makes the detection logic easier to validate and tune.
 
 ## Evidence
 
@@ -87,8 +86,6 @@ Key supporting files:
 
 ## Detection Logic Summary
 
-The repeated-RDP rule is useful because it is simple and defensible:
-
 - event source: TerminalServices RemoteConnectionManager
 - event ID: `1149`
 - grouping: same host, user, and source IP
@@ -96,21 +93,19 @@ The repeated-RDP rule is useful because it is simple and defensible:
 - threshold: at least two accepted authentications
 - ATT&CK mapping: `T1021.001`
 
-That logic stays easy to defend while still opening up meaningful tuning conversations.
-
 ## Tuning Decision
 
 For this lab, I would keep `Repeated RDP Authentication Accepted` promoted as a standalone finding instead of downgrading it immediately.
 
 Reasoning:
 
-- accepted interactive RDP access is high-signal enough to deserve analyst visibility
-- the current weakness is missing corroborating telemetry, not obvious false positives
-- suppressing the rule before documenting jump hosts, admin workstations, or approved maintenance paths would hide useful activity too early
+- accepted interactive RDP access is high-signal enough to remain visible to analyst
+- the current limitation is missing corroborating telemetry, not clear evidences of false positives
+- suppressing the rule before documenting jump hosts, admin workstations, or approved maintenance paths would remove potentially useful activity too early
 
-The next improvement is not suppression. It is correlation.
+The next step is correlation, not suppression.
 
-An example overlay is saved at [artifacts/local-tuning-example.json](./artifacts/local-tuning-example.json). It shows what a suppression could look like after an admin jump host is documented and approved. It was not applied to the exported case artifacts in this project.
+An example overlay is saved at [artifacts/local-tuning-example.json](./artifacts/local-tuning-example.json). It shows what suppression could look like after an administrative jump host is documented and approved. It was not applied to the exported case artifacts in this project.
 
 ## Future Improvements
 
