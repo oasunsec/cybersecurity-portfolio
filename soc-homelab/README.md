@@ -2,7 +2,8 @@
 
 ## Executive Summary
 
-This project documents a short network investigation based on a packet capture from a Linux host. The evidence shows a `curl` download of `install.sh` from `filebin.net`, retrieval of a script payload from `s3.filebin.net`, and follow-on outbound communication to `webhook.site` using `python-requests`. The case is documented as an entry-level SOC workflow with triage notes, indicators, ATT&CK mapping, and analyst conclusions.
+This project presents a SOC network investigation using packet capture evidence from a Linux host. The analysis identified a curl download of install.sh from filebin.net, retrieval of a payload from s3.filebin.net, and subsequent outbound communication to webhook.site using python-requests. The write-up includes triage notes, indicators of compromise, ATT&CK mapping, and a final assessment.
+
 
 ## Environment
 
@@ -39,7 +40,7 @@ flowchart LR
 4. The script contains a Base64-decoded Python payload
 5. The Python code sends encoded environment data to `webhook.site`
 
-This is a concise example of suspicious script retrieval followed by outbound data transfer.
+The sequence is consistent with suspicious script retrieval followed by outbound data transfer.
 
 ## Evidence
 
