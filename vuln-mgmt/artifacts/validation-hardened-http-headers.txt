@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sun, 22 Mar 2026 03:06:09 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 75002
+Connection: keep-alive
+Feature-Policy: payment 'self'
+X-Recruiting: /#/jobs
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Sun, 22 Mar 2026 00:26:55 GMT
+ETag: W/"124fa-19d12f00ed8"
+Vary: Accept-Encoding
+Access-Control-Allow-Origin: http://127.0.0.1:8081
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; base-uri 'self'; frame-ancestors 'self'; object-src 'none'
+Permissions-Policy: camera=(), geolocation=(), microphone=()
+Referrer-Policy: strict-origin-when-cross-origin
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+

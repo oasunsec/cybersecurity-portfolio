@@ -1,0 +1,20 @@
+# Local temporary files
+*.log
+*.tmp
+*.swp
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+
+# Large binary captures and exports
+artifacts/*.pcap
+artifacts/*.pcapng
+artifacts/*.nessus
+artifacts/*.xml
+artifacts/*.zip
+
+# Local runtime state
+vuln-mgmt/hardening/runtime/
+webapp-pentest/artifacts/runtime/

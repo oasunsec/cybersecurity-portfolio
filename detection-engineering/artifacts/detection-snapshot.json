@@ -1,0 +1,53 @@
+{
+  "case": {
+    "case_name": "Testing",
+    "input_source_display": "DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx",
+    "primary_host": "PC01.example.corp",
+    "primary_user": "admin01",
+    "primary_source_ip": "10.0.2.15",
+    "response_priority": "P4",
+    "telemetry_present": [
+      "TerminalServices"
+    ],
+    "telemetry_missing": [
+      "Security",
+      "Sysmon",
+      "PowerShell"
+    ]
+  },
+  "findings": [
+    {
+      "display_label": "FND-0001",
+      "title": "Repeated RDP Authentication Accepted",
+      "severity": "high",
+      "confidence": "low",
+      "host": "IEWIN7",
+      "user": "administrator",
+      "source_ip": "10.0.2.16",
+      "summary": "Repeated TerminalServices 1149 success events from the same remote source indicate accepted interactive RDP access and can reflect hands-on lateral movement.",
+      "recommended_next": "Correlate these 1149 events with nearby 4624 LogonType 10 sessions, interactive process creation, and any tunnel or port-forwarding activity from the same source."
+    },
+    {
+      "display_label": "FND-0002",
+      "title": "Repeated RDP Authentication Accepted",
+      "severity": "high",
+      "confidence": "low",
+      "host": "PC01.example.corp",
+      "user": "admin01",
+      "source_ip": "10.0.2.15",
+      "summary": "Repeated TerminalServices 1149 success events from the same remote source indicate accepted interactive RDP access and can reflect hands-on lateral movement.",
+      "recommended_next": "Correlate these 1149 events with nearby 4624 LogonType 10 sessions, interactive process creation, and any tunnel or port-forwarding activity from the same source."
+    },
+    {
+      "display_label": "FND-0003",
+      "title": "Repeated RDP Authentication Accepted",
+      "severity": "high",
+      "confidence": "low",
+      "host": "PC01.example.corp",
+      "user": "admin01",
+      "source_ip": "10.0.2.15",
+      "summary": "Repeated TerminalServices 1149 success events from the same remote source indicate accepted interactive RDP access and can reflect hands-on lateral movement.",
+      "recommended_next": "Correlate these 1149 events with nearby 4624 LogonType 10 sessions, interactive process creation, and any tunnel or port-forwarding activity from the same source."
+    }
+  ]
+}

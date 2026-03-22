@@ -1,0 +1,27 @@
+{
+  "allowlists": {
+    "hosts": [],
+    "users": [],
+    "processes": [],
+    "services": [],
+    "tasks": [],
+    "ips": [
+      "192.0.2.10"
+    ]
+  },
+  "rule_suppressions": [
+    {
+      "rule": "Repeated RDP Authentication Accepted",
+      "ip": "192.0.2.10",
+      "description": "Example approved admin jump host after validation and change control",
+      "reason": "approved_admin_jump_host"
+    }
+  ],
+  "promotion_overrides": {
+    "standalone": [
+      "Repeated RDP Authentication Accepted"
+    ],
+    "correlate": [],
+    "signal_only": []
+  }
+}

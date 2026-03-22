@@ -1,0 +1,36 @@
+Case: Testing
+Input Source: DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx
+Primary Host: PC01.example.corp
+Primary User: admin01
+Primary Source IP: 10.0.2.15
+Response Priority: P4
+First Seen: 2018-11-06T21:31:54.070986+00:00
+Last Seen: 2019-02-13T18:04:57.452387+00:00
+Signal Count: 3
+Finding Count: 3
+Incident Count: 0
+Raw Alert Count: 3
+Suppressed Alert Count: 0
+Post-Filter Alert Count: 3
+Deduplicated Alert Count: 0
+Post-Dedup Alert Count: 3
+Finding Promotion Rate: 1.0
+Incident Promotion Rate: 0.0
+Telemetry Present: TerminalServices
+Telemetry Missing: Security, Sysmon, PowerShell
+Suppressed Reasons: {}
+Collection Quality Summary: Offline collection parsed 1 EVTX file(s) and produced 228 normalized event(s). Missing telemetry: Security, Sysmon, PowerShell.
+Collection Source Kind: files
+Collection Source Count: 1
+Collection Parsed Event Count: 228
+Collection Warning Count: 0
+Collection Warning Sources: None
+Collection Permission Denied Sources: None
+Collection Fallback Used: No
+Collection Recommendations: Collect Security telemetry for stronger authentication, privilege, and account-management coverage. | Enable or collect Sysmon telemetry for stronger process, network, and image-load context. | Include PowerShell Operational logging for better script-based detection coverage.
+
+Top Rule Metrics:
+- Repeated RDP Authentication Accepted: raw 3, suppressed 0, findings 3, incidents 0
+
+Tuning Recommendations:
+- Repeated RDP Authentication Accepted: review_incident_correlation_coverage (This rule promotes strongly into findings but rarely contributes to an incident narrative.)

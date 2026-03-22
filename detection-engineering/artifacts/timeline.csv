@@ -1,0 +1,4 @@
+"display_label","timestamp","title","severity","host","user","source_ip","summary"
+"FND-0001","2018-11-06T21:45:50.411263+00:00","Repeated RDP Authentication Accepted","high","IEWIN7","administrator","10.0.2.16","administrator authenticated to IEWIN7 over RDP from 10.0.2.16 2 times"
+"FND-0002","2019-01-29T23:00:10.212008+00:00","Repeated RDP Authentication Accepted","high","PC01.example.corp","admin01","10.0.2.15","admin01 authenticated to PC01.example.corp over RDP from 10.0.2.15 4 times"
+"FND-0003","2019-02-02T22:40:13.572290+00:00","Repeated RDP Authentication Accepted","high","PC01.example.corp","admin01","10.0.2.15","admin01 authenticated to PC01.example.corp over RDP from 10.0.2.15 2 times"
