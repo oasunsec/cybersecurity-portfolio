@@ -8,9 +8,7 @@ Target roles: SOC analyst, detection analyst, junior security engineer, and secu
 
 - GIAC GSEC
 - GIAC GCIH
-- GIAC GFACT
 - CompTIA Security+
-- ISC2 Certified in Cybersecurity (CC)
 
 ## Featured Projects
 
