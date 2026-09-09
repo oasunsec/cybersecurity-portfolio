@@ -61,3 +61,4 @@ Analyzed a Windows RDP authentication use case, documented telemetry gaps, prese
 - [Vulnerability Management Lab](./vuln-mgmt/README.md)
 - [Web Application Pentest Lab](./webapp-pentest/README.md)
 - [Detection Engineering and Tuning Lab](./detection-engineering/README.md)
+- [Honey Token Detection](https://github.com/oasunsec/honey-token-detection)
