@@ -1,0 +1,1 @@
+environ({'HOSTNAME': '66e2549a6da7', 'PWD': '/', 'container': 'podman', 'API_KEY': '[REDACTED]', 'HOME': '/root', 'TERM': 'xterm', 'SHLVL': '2', 'HTTPS_PROXY': '10.89.0.6:8080', 'HTTP_PROXY': '10.89.0.6:8080', 'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/usr/bin/python', 'LC_CTYPE': 'C.UTF-8'})
