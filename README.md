@@ -22,7 +22,7 @@ SQL injection in the Juice Shop login API gives an admin session, and an unauthe
 
 A rule for repeated accepted RDP logons (event 1149), run with my [triage-engine](https://github.com/oasunsec/triage-engine). It found three hits and no incidents because Security and Sysmon logs were missing. I explain why I kept the rule instead of suppressing it.
 
-Also see [Honey Token Detection](https://github.com/oasunsec/honey-token-detection): decoy documents that alert into Microsoft Sentinel on Azure.
+Also see [Honey Token Detection](https://github.com/oasunsec/honey-token-detection), decoy documents that alert into Microsoft Sentinel, and the [Azure Data Exfiltration Defense Lab](https://github.com/oasunsec/azure-data-exfiltration-defense-lab), which tests storage, identity and DLP controls against a synthetic financial file.
 
 ## Tools used
 
