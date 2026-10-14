@@ -2,7 +2,7 @@
 
 ## Incident Summary
 
-On February 3, 2025, host `10.89.0.5` downloaded `install.sh` from `filebin.net` using `curl`, followed the redirect to `s3.filebin.net`, and retrieved a script that contained a Base64-encoded Python payload. The decoded payload used `python-requests` to send encoded environment data to `webhook.site`. Decoding the request recovered the container's environment variables, including an `API_KEY`, so this is confirmed credential theft rather than suspicious activity.
+On February 3, 2025, host `10.89.0.5` downloaded `install.sh` from `filebin.net` using `curl`, followed the redirect to `s3.filebin.net`, and retrieved a script that contained a Base64-encoded Python payload. The decoded payload used `python-requests` to send encoded environment data to `webhook.site`. Decoding the request recovered the container's environment variables, including an `API_KEY`. This is confirmed credential theft.
 
 ## Systems Involved
 
@@ -45,14 +45,14 @@ On February 3, 2025, host `10.89.0.5` downloaded `install.sh` from `filebin.net`
 
 ## Analyst Assessment
 
-This activity is suspicious for three reasons:
+Four things make this malicious:
 
 1. A script was retrieved over plain HTTP from a public file-sharing service
 2. The script contained obfuscated logic that decoded and executed Python
 3. The decoded Python sent encoded environment data to a webhook endpoint
 4. The XOR key comes from unseeded glibc `rand()`, so the request could be decoded offline; it contains an `API_KEY`, the container hostname `66e2549a6da7`, and the internal proxy `10.89.0.6:8080`
 
-The combined behavior is staged payload delivery followed by confirmed theft of a secret. Even in a lab context, this should be escalated for credential rotation, host review, and containment.
+This is a staged payload followed by confirmed theft of a secret. Escalate it for credential rotation, host review, and containment.
 
 ## Recommended Actions
 

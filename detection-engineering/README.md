@@ -1,32 +1,26 @@
-# Project: Detection Engineering and Tuning Lab
+# Detection Engineering and Tuning Lab
 
-## Executive Summary
+A rule for repeated accepted RDP logons (Terminal Services event 1149, ATT&CK T1021.001), run on a sample EVTX file with my [triage-engine](https://github.com/oasunsec/triage-engine). It produced three findings and no incidents. Security, Sysmon and PowerShell logs were missing from the sample, so there was nothing to correlate the findings with. Below is how the rule works, what the case showed, and why I kept the rule instead of suppressing it.
 
-This project documents a detection engineering workflow built around a Windows RDP authentication use case. The lab validates detection logic, preserves structured case artifacts, reviews telemetry gaps, and supports tuning decisions based on the available evidence. The case uses repeated Terminal Services 1149 authentication events that indicate accepted RDP access and maps to ATT&CK T1021.001.
+## Setup
 
-## Environment
+- Kali Linux VM on VMware
+- Source data: `DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx`
+- Detection engine: local `triage-engine` case output
+- Tools: `jq`, Bash
 
-- Host: VMware
-- Analyst VM: Kali Linux
-- Source data: Windows TerminalServices EVTX-derived case output
-- Detection source: local `triage-engine` case artifacts
-- ATT&CK focus: `T1021.001` Remote Desktop Protocol
-- Tools: `jq`, Bash, Markdown, EVTX case outputs
+## Case details
 
-## Case Snapshot
-
-- Case name: `Testing`
-- Input source: `DE_RDP_Tunneling_TerminalServices-RemoteConnectionManagerOperational_1149.evtx`
-- Primary host: `PC01.example.corp`
-- Primary user: `admin01`
-- Primary source IP: `10.0.2.15`
-- Response priority: `P4`
-- Signal count: `3`
-- Finding count: `3`
-- Telemetry present: `TerminalServices`
-- Telemetry missing: `Security`, `Sysmon`, `PowerShell`
-
-## Workflow
+| Field | Value |
+|---|---|
+| Case name | `Testing` |
+| Host | `PC01.example.corp` |
+| User | `admin01` |
+| Source IP | `10.0.2.15` |
+| Priority | `P4` |
+| Signals / findings / incidents | 3 / 3 / 0 |
+| Telemetry present | `TerminalServices` |
+| Telemetry missing | `Security`, `Sysmon`, `PowerShell` |
 
 ```mermaid
 flowchart LR
@@ -36,30 +30,57 @@ flowchart LR
     D --> E[Tuning Notes and ATT&CK Coverage]
 ```
 
-## Detection Use Case
+## The rule
 
-The use case is intentionally narrow:
-	1.	Look for Windows Terminal Services event 1149
-	2.	Group repeated successful RDP authentications by host, user, and source IP
-	3.	Promote clusters of repeated authentications into findings
-	4.	Review whether the rule should remain standalone, be correlated with additional telemetry, or be suppressed for known-good administrative activity
+- Event source: TerminalServices RemoteConnectionManager
+- Event ID: `1149` (RDP authentication accepted)
+- Group by: host, user, and source IP
+- Window: two hours
+- Threshold: two or more accepted logons
+- ATT&CK: `T1021.001`
 
-The narrow scope makes the detection logic easier to validate and tune.
+The rule is kept deliberately small so each result can be checked against the raw events.
+
+## Findings
+
+| ID | Finding | Severity | Evidence | Response |
+|---|---|---|---|---|
+| D-01 | Repeated `1149` success events from one source were grouped into RDP findings | High | `case-summary.txt`, `detection-snapshot.json`, `timeline.csv` | Keep the rule visible. An accepted RDP logon matters even before anything else corroborates it |
+| D-02 | Missing `Security`, `Sysmon`, and `PowerShell` logs lowered confidence and left nothing to pivot to | Medium | `case-summary.txt`, `finding-metrics.md`, `incident-brief.md` | Collect these so the rule can correlate with `4624`, process creation, and script activity |
+| D-03 | Three findings and zero incidents: the gap is in correlation, not in the rule | Medium | `finding-metrics.md`, `incident-brief.md` | Build the adjacent correlations before considering suppression |
+
+## Tuning decision
+
+I kept "Repeated RDP Authentication Accepted" as a standalone finding and did not downgrade it.
+
+- An accepted interactive RDP logon is worth an analyst's attention.
+- The problem in this case was missing telemetry. Nothing showed the hits were false positives.
+- Suppressing the rule before jump hosts, admin workstations and approved maintenance paths are documented would hide activity that might matter.
+
+So the fix is to add correlation. Suppression can wait.
+
+[artifacts/local-tuning-example.json](./artifacts/local-tuning-example.json) shows what a suppression would look like once an admin jump host is documented and approved. I did not apply it to this case.
 
 ## Evidence
 
-Each screenshot below is a direct capture of an exported case artifact.
-
-The case summary preserved the source case, promotion counts, and missing telemetry:
+Case summary with promotion counts and missing telemetry:
 ![Exported case summary](./screenshots/2026-03-21_evidence-case-summary.png)
 
-The detection snapshot preserved the promoted findings built from repeated `1149` events:
+Detection snapshot with the findings built from repeated `1149` events:
 ![Detection snapshot](./screenshots/2026-03-21_evidence-detection-snapshot.png)
 
-Finding metrics preserved the three findings, zero incidents, and the correlation-coverage recommendation used in the tuning decision:
+Finding metrics: three findings, zero incidents, and the correlation recommendation:
 ![Finding metrics](./screenshots/2026-03-21_evidence-finding-metrics.png)
 
-Key supporting files:
+## Next
+
+- Add Security `4624` LogonType `10` to confirm that a session was created.
+- Add Sysmon process and network events for the same host and source IP.
+- Correlate repeated `1149` findings with other lateral-movement signals before adding any suppression.
+
+## Files
+
+Artifacts:
 
 - [artifacts/case-summary.txt](./artifacts/case-summary.txt)
 - [artifacts/finding-metrics.md](./artifacts/finding-metrics.md)
@@ -68,51 +89,11 @@ Key supporting files:
 - [artifacts/incident-brief.md](./artifacts/incident-brief.md)
 - [artifacts/local-tuning-example.json](./artifacts/local-tuning-example.json)
 
-## Supporting Files
+Notes and scripts:
 
 - [notes/detection-logic.md](./notes/detection-logic.md)
+- [notes/tuning-notes.md](./notes/tuning-notes.md)
 - [mitre/coverage.md](./mitre/coverage.md)
 - [scripts/export_case_artifacts.sh](./scripts/export_case_artifacts.sh)
 
-`./scripts/export_case_artifacts.sh` defaults to `../../triage-engine/cases/Testing`. Pass a case directory as the first argument if your local exported case lives elsewhere.
-
-## Findings Summary
-
-| ID | Finding | Severity | Evidence | Response |
-|---|---|---|---|---|
-| D-01 | Repeated TerminalServices `1149` success events from the same source were clustered into actionable RDP findings | High | `case-summary.txt`, `detection-snapshot.json`, `timeline.csv` | Keep the rule visible because accepted RDP access is meaningful even before full incident correlation |
-| D-02 | Missing `Security`, `Sysmon`, and `PowerShell` telemetry reduced confidence and limited follow-on pivots | Medium | `case-summary.txt`, `finding-metrics.md`, `incident-brief.md` | Expand collection so the rule can correlate with `4624`, process creation, and script activity |
-| D-03 | The rule produced three findings and zero incidents in this case, showing a correlation coverage gap rather than a detection failure | Medium | `finding-metrics.md`, `incident-brief.md` | Keep current visibility and build adjacent correlations instead of suppressing the rule too early |
-
-## Detection Logic Summary
-
-- event source: TerminalServices RemoteConnectionManager
-- event ID: `1149`
-- grouping: same host, user, and source IP
-- cluster window: two hours
-- threshold: at least two accepted authentications
-- ATT&CK mapping: `T1021.001`
-
-## Tuning Decision
-
-For this lab, I would keep `Repeated RDP Authentication Accepted` promoted as a standalone finding instead of downgrading it immediately.
-
-Reasoning:
-
-- accepted interactive RDP access is high-signal enough to remain visible to analyst
-- the current limitation is missing corroborating telemetry, not clear evidences of false positives
-- suppressing the rule before documenting jump hosts, admin workstations, or approved maintenance paths would remove potentially useful activity too early
-
-The next step is correlation, not suppression.
-
-An example overlay is saved at [artifacts/local-tuning-example.json](./artifacts/local-tuning-example.json). It shows what suppression could look like after an administrative jump host is documented and approved. It was not applied to the exported case artifacts in this project.
-
-## Future Improvements
-
-- Add Security `4624` LogonType `10` telemetry to validate session creation.
-- Add Sysmon process and network visibility around the same source IP and host.
-- Correlate repeated `1149` findings with adjacent lateral-movement signals before adding any suppression.
-
-## Conclusion
-
-This case shows a practical middle ground between alert triage and detection engineering: validate the rule, preserve the evidence, explain confidence gaps, and document the tuning decision clearly.
+`./scripts/export_case_artifacts.sh` reads from `../../triage-engine/cases/Testing` by default. Pass a different case directory as the first argument.

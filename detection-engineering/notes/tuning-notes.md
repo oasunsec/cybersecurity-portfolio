@@ -30,13 +30,11 @@ I would consider more aggressive tuning only after:
 
 ## Published Example
 
-The file `artifacts/local-tuning-example.json` shows a minimal overlay that suppresses one reserved TEST-NET jump-host IP after validation and change control. It is included as a documented example of how suppression could be applied after approved admin paths are confirmed. It was not applied to the exported case artifacts in this project.
+The file `artifacts/local-tuning-example.json` shows a minimal overlay that suppresses one reserved TEST-NET jump-host IP after validation and change control. It shows how suppression would work once approved admin paths are confirmed. It was not applied to the exported case artifacts in this project.
 
-## Preferred Next Improvement
+## Next Improvement
 
-The next engineering step should be correlation, not suppression.
-
-Add:
+Add these sources and correlate on them before suppressing anything:
 
 - Security `4624` LogonType `10`
 - Sysmon process creation

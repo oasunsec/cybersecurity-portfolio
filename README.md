@@ -1,62 +1,29 @@
 # Cybersecurity Portfolio
 
-Hands-on cybersecurity portfolio with projects in SOC investigation, vulnerability management, web application testing, and detection engineering built in a VMware and Kali Linux lab.
+Four lab investigations from a VMware and Kali Linux setup. Each one keeps the raw artifacts, screenshots, and the scripts used to produce them, so every claim can be checked.
 
-Target roles: SOC analyst, detection analyst, junior security engineer, and security operations roles.
+GIAC GSEC · GIAC GCIH · CompTIA Security+
 
-## Certifications
+## Projects
 
-- GIAC GSEC
-- GIAC GCIH
-- CompTIA Security+
+### [SOC Homelab Investigation](./soc-homelab/README.md)
 
-## Featured Projects
+Packet capture of a Linux host downloading `install.sh` from `filebin.net` and calling out to `webhook.site`. I decoded the outbound request by rebuilding the payload's XOR key from unseeded glibc `rand()`. It held the host's environment variables, including an API key, which makes this credential theft.
 
-### SOC Homelab Investigation
+### [Vulnerability Management Lab](./vuln-mgmt/README.md)
 
-Investigated a suspicious script download and outbound beaconing sequence from packet-capture evidence and documented the case with IOCs, a timeline, and ATT&CK mapping.
+Nmap and Nikto against OWASP Juice Shop. Most of Nikto's "backup file" hits were the single-page app returning the same page for every path. Three findings were real. I fixed them behind an nginx reverse proxy and saved the headers from before and after.
 
-### Vulnerability Management Lab
+### [Web Application Pentest Lab](./webapp-pentest/README.md)
 
-Assessed OWASP Juice Shop in a local Docker lab, distinguished scanner noise from actionable findings, and validated compensating controls with before-and-after evidence.
+SQL injection in the Juice Shop login API gives an admin session, and an unauthenticated API call leaks the framework version. Each finding has the saved request and response, plus a retest through a small Python proxy that blocks both.
 
-### Web Application Pentest Lab
+### [Detection Engineering and Tuning Lab](./detection-engineering/README.md)
 
-Validated two narrowly scoped findings in OWASP Juice Shop with saved request-and-response evidence and retested them through a lightweight guarded proxy.
+A rule for repeated accepted RDP logons (event 1149), run with my [triage-engine](https://github.com/oasunsec/triage-engine). It found three hits and no incidents because Security and Sysmon logs were missing. I explain why I kept the rule instead of suppressing it.
 
-### Detection Engineering and Tuning Lab
+Also see [Honey Token Detection](https://github.com/oasunsec/honey-token-detection): decoy documents that alert into Microsoft Sentinel on Azure.
 
-Analyzed a Windows RDP authentication use case, documented telemetry gaps, preserved structured case artifacts, and explained the tuning decisions behind the detection rule.
+## Tools used
 
-## Tools
-
-- Kali Linux
-- VMware
-- Wireshark
-- Zeek
-- Suricata
-- Nmap
-- Nikto
-- nginx
-- Burp Suite Community Edition
-- OWASP ZAP
-- Sigma
-- `jq`
-- GitHub Markdown reporting
-
-## Skills
-- Packet analysis
-- IOC extraction
-- HTTP traffic review
-- Vulnerability validation
-- Detection tuning
-- ATT&CK mapping
-- Technical documentation
-
-## Project Links
-
-- [SOC Homelab Investigation](./soc-homelab/README.md)
-- [Vulnerability Management Lab](./vuln-mgmt/README.md)
-- [Web Application Pentest Lab](./webapp-pentest/README.md)
-- [Detection Engineering and Tuning Lab](./detection-engineering/README.md)
-- [Honey Token Detection](https://github.com/oasunsec/honey-token-detection)
+Wireshark, `tshark`, `tcpdump`, Nmap, Nikto, `curl`, nginx, `jq`, Python, Bash.

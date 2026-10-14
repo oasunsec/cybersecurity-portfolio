@@ -1,17 +1,9 @@
-# Defensive Context Note
+# ATT&CK and Defensive Context
 
-## Project Context
+I didn't map this project to ATT&CK techniques. The findings are exposure problems, not attacker behavior I observed, and forcing technique labels onto them wouldn't add anything.
 
-This project is not ATT&CK-focused in the same way as the SOC and detection engineering projects. It is centered on exposure review, prioritization, and remediation validation.
+What the findings mean for a defender:
 
-## Defensive Themes
-
-The findings in this project still reflect common blue-team concerns:
-
-- exposed routes that help attackers enumerate application structure
-- weak browser security headers that increase exploitability
-- validation work that shows compensating controls can reduce exposure before app-native fixes are deployed
-
-## Analyst Note
-
-For this project, the stronger signal is remediation thinking rather than detailed ATT&CK mapping. The before-and-after validation artifacts add more value than forcing technique labels where they do not materially improve the analysis.
+- `robots.txt` and the open `/ftp/` route help an attacker map the application
+- A wildcard CORS origin and a missing CSP make other bugs easier to exploit
+- A reverse proxy can close these gaps while the application fix is pending
