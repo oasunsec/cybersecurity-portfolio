@@ -1,6 +1,6 @@
 # SOC Homelab Investigation
 
-A Linux host pulled `install.sh` from `filebin.net` with `curl`. The script unpacked a Python payload that sent the host's environment variables to `webhook.site`. I worked through the packet capture, recovered the payload, and decoded the outbound request. It contained an `API_KEY`, so this is credential theft and not just a suspicious download.
+A Linux host pulled `install.sh` from `filebin.net` with `curl`. The script unpacked a Python payload that sent the host's environment variables to `webhook.site`. I worked through the packet capture, recovered the payload, and decoded the outbound request. It contained an `API_KEY`, which makes this credential theft.
 
 ## Setup
 
